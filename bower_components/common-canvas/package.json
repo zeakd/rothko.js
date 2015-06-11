@@ -1,0 +1,26 @@
+{
+  "name": "common-canvas",
+  "version": "1.0.4",
+  "description": "common tools with canvas",
+  "main": "common-canvas.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stuzeakd/common-canvas"
+  },
+  "keywords": [
+    "common",
+    "canvas"
+  ],
+  "author": "appley",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/stuzeakd/common-canvas/issues"
+  },
+  "homepage": "https://github.com/stuzeakd/common-canvas",
+  "dependencies": {
+ 
+  }
+}

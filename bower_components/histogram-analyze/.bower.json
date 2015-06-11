@@ -1,0 +1,14 @@
+{
+  "name": "histogram-analyze",
+  "homepage": "https://github.com/zeakd/histogram-analyze.js",
+  "_release": "99f8bd7d3b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "99f8bd7d3bb86c69d1a3526c3116cfb1cb020f5f"
+  },
+  "_source": "git://github.com/zeakd/histogram-analyze.js.git",
+  "_target": "*",
+  "_originalSource": "histogram-analyze",
+  "_direct": true
+}
