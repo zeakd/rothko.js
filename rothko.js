@@ -1,3 +1,5 @@
+// Rothko Project
+//
 // Rothko.js 
 //
 // zeakd
@@ -15,9 +17,9 @@
         var Canvas = require('canvas');
         var Image = Canvas.Image;
         var tc = require('tinycolor2');
-        var cmCvs = require('common-canvas');
-        var HA = require('histogram-analyze');
-        module.exports = factory(Canvas, Image, tc, cmCvs, HA);
+        var kit = require('./dep/drawing-kit');
+        var HA = require('./dep/histogram-analyze');
+        module.exports = factory(Canvas, Image, tc, kit, HA);
         //Node module dependency
     }else {
         Canvas = function(width, height){
@@ -27,25 +29,24 @@
             return canvas;
         }   
         if(isRequirejs){
-            define(['tinycolor', 'common-canvas', 'histogram-analyze'], function(tc, cmCvs, HA){ 
+            define(['tinycolor', 'drawing-kit', 'histogram-analyze'], function(tc, kit, HA){ 
             //export requirejs Module
-                return factory(Canvas, Image, tc, cmCvs, HA); 
+                return factory(Canvas, Image, tc, kit, HA); 
             });
         } else {
-            cmCvs = window.commonCanvas;
+            kit = window.drawingKit;
             tc = window.tinycolor;
             HA = window.HistogramAnalyze;
-            root.Rothko = factory(Canvas, Image, tc, cmCvs, HA);        
+            root.Rothko = factory(Canvas, Image, tc, kit, HA);        
         }
         //export normal browser module.
         
     }    
-}(function(Canvas, Image, tc, cmCvs, HA){
+}(function(Canvas, Image, tc, kit, HA){
     /* setting */
     var h1D = HA.histogram1D;
     var cH1D = HA.circularHistogram1D;
     var h2D = HA.histogram2D;
-    
     /* Constant */
     var HUE_RANGE = 360;
     var SATURATION_RANGE = 101;
@@ -56,55 +57,15 @@
 
     var YELLOW_HUE = 60;    
     var GREEN_HUE = 120;
-
-    function analyzeImage(){
-        var hHist;
-        var svHist;
-        return {
-            hHistogram : hHist,
-            svHistogram : svHist,
-            
-        }
-    }
-
     var Rothko = function Rothko (imageObj){
         var RESIZING_PIXEL = 100000;
         if(!(this instanceof Rothko)){
            return new Rothko(imageObj);
         }
-        if (cmCvs.isImage(imageObj) || cmCvs.isCanvas(imageObj)){
-            var _image = cmCvs.createCanvasByImage(imageObj, RESIZING_PIXEL);
+        if (kit.isImage(imageObj) || kit.isCanvas(imageObj)){
+            var _image = kit.createCanvasByImage(imageObj, RESIZING_PIXEL);
             
-            
-//            console.log(imageCanvas.width, imageCanvas.height);          
-//            var seen = [];
-//            console.log(JSON.stringify(imageCanvas, function(key, val) {
-//               if (val != null && typeof val == "object") {
-//                    if (seen.indexOf(val) >= 0) {
-//                        return;
-//                    }
-//                    seen.push(val);
-//                }
-//                return val;
-//            }));
         }
     };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
     return Rothko;
 }))
