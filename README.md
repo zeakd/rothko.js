@@ -1,1 +1,7 @@
 # Colorchip.js
+
+
+## Install
+
+## Document
+
