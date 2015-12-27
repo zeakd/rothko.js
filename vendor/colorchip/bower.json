@@ -1,0 +1,33 @@
+{
+  "name": "colorchip",
+  "description": "color list and converted using chroma.js",
+  "main": "dist/colorchip.js",
+  "authors": [
+    "zeakd <stuzeakd@kaist.ac.kr>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "color",
+    "convert",
+    "chroma",
+    "rgb",
+    "hsv",
+    "lch",
+    "lab",
+    "array",
+    "list"
+  ],
+  "homepage": "https://github.com/zeakd/colorchip.js#readme",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

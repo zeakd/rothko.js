@@ -1,0 +1,25 @@
+@import "input";
+
+#root {
+    margin : 10px;
+    text-align: center;
+    img {
+        max-width: 400px;
+        margin: auto;
+    }
+    canvas {
+        width : 400px;
+    }
+    .color {
+        width : 50px;
+        height : 50px;
+        margin: 5px;
+        display: inline-block;
+    }
+    .colors {
+        display: block;
+//        width : 400px;
+        margin: auto 0;
+    }
+    margin-bottom: 300px;
+}

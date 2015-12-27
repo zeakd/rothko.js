@@ -1,0 +1,28 @@
+{
+  "name": "drawing-kit",
+  "description": "html5 canvas tools",
+  "main": "dist/drawing-kit.js",
+  "authors": [
+    "zeakd <stuzeakd@kaist.ac.kr>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "canvas",
+    "kit",
+    "util",
+    "drawing"
+  ],
+  "homepage": "https://github.com/zeakd/drawing-kit.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
