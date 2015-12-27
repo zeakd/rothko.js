@@ -1,5 +1,6 @@
 {
   "name": "drawing-kit",
+  "version": "0.1.0",
   "description": "basic html5 canvas kit",
   "main": "dist/drawing-kit.js",
   "authors": [
