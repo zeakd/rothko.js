@@ -1,7 +1,7 @@
 {
   "name": "drawing-kit",
-  "version": "0.0.0",
-  "description": "html5 canvas tools",
+  "version": "0.1.0",
+  "description": "basic html5 canvas kit",
   "main": "dist/drawing-kit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
