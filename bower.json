@@ -1,22 +1,16 @@
 {
   "name": "rothko",
-  "main": "dist/rothko.js",
   "version": "0.1.1",
-  "homepage": "https://github.com/zeakd/rothko.js",
+  "description": "what color is your landscape",
+  "main": "dist/rothko.js",
   "authors": [
     "zeakd <stuzeakd@kaist.ac.kr>"
   ],
-  "description": "what color is your landscape",
-  "moduleType": [
-    "amd",
-    "globals",
-    "node"
-  ],
+  "license": "MIT",
   "keywords": [
     "rothko",
     "color",
     "painting",
-    "paint",
     "canvas",
     "image",
     "node-canvas",
@@ -24,11 +18,17 @@
     "impressive",
     "impression"
   ],
-  "license": "MIT",
+  "homepage": "https://github.com/zeakd/rothko.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "debug/bower_components",
     "test",
     "tests"
   ],
