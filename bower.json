@@ -33,6 +33,8 @@
     "tests"
   ],
   "dependencies": {
-    "chroma-js": "~1.1.1"
+    "chroma-js": "~1.1.1",
+    "histogram-analyze": "~1.1.4",
+    "drawing-kit": "~0.1.0"
   }
 }
