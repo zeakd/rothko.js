@@ -1,4 +1,4 @@
-// Rothko.js 
+// drawing-kit.js 
 //
 // zeakd
 
@@ -6,18 +6,10 @@
     'use strict'
     // commonjs
     if (typeof exports === "object" && typeof module !== "undefined") {
-        module.export = factory(
-            require('drawing-kit'),
-            require('histogram-analyze'),
-            require('chroma')
-        )
+        module.export = factory();
     // amd
     } else if (typeof define === 'function' && define.amd) {
-        define([
-            'drawing-kit', 
-            'histogram-analyze',
-            'chroma'
-        ], factory);
+        define(factory);
     // <script>    
     } else {
         var root;
@@ -33,8 +25,6 @@
           // see https://github.com/facebook/react/issues/3037
           root = this;
         }
-        root.Rothko = factory(root.drawingKit, 
-                              root.histogramAnalyze, 
-                              root.chroma);
-    }     
-}(function(kit, hA, chroma){
+        root.drawingKit = factory();
+    }      
+}(function(){

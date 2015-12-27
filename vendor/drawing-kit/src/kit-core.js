@@ -1,4 +1,4 @@
-(function () {
+
     if(typeof Canvas === 'undefined') {
         var Canvas = function(width, height){
             var canvas = document.createElement("canvas");
@@ -118,6 +118,4 @@
         pixelLooper: pixelLooper,
         createCanvasByImage : createCanvasByImage,
     }
-    
-    window.drawingKit = drawingKit;
-}())
+
