@@ -1,6 +1,6 @@
 {
   "name": "rothko",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "what color is your landscape",
   "main": "dist/rothko.js",
   "authors": [
