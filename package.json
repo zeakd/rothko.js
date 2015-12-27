@@ -28,9 +28,7 @@
   },
   "homepage": "https://github.com/zeakd/rothko.js#readme",
   "dependencies": {
-    "common-canvas": "^2.0.0",
-    "histogram-analyze": "^1.1.1",
-    "tinycolor2": "^1.1.2"
+
   },
   "devDependencies": {
     "canvas": "^1.2.3",
