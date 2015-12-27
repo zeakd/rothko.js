@@ -2,7 +2,7 @@
   "name": "rothko",
   "version": "0.1.0",
   "description": "what color is your landscape",
-  "main": "rothko.js",
+  "main": "dist/rothko.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

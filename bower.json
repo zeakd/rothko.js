@@ -1,6 +1,6 @@
 {
   "name": "rothko",
-  "main": "rothko.js",
+  "main": "dist/rothko.js",
   "version": "0.1.0",
   "homepage": "https://github.com/zeakd/rothko.js",
   "authors": [
