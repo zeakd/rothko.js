@@ -1,7 +1,7 @@
 {
   "name": "rothko",
   "main": "rothko.js",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/zeakd/rothko.js",
   "authors": [
     "zeakd <stuzeakd@kaist.ac.kr>"
