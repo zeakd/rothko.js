@@ -1,2 +1,2 @@
 var kit = drawingKit;
-var hA = HistogramAnalyze;
+var hA = histogramAnalyze;
