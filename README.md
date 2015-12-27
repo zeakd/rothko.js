@@ -8,7 +8,7 @@ get dominant, chroma, achroma, and point colors in photo, with some data of colo
 ## commonjs
 
 ## script tag
-You should install latest version of dependencies, [chroma](https://github.com/gka/chroma.js), [drawing-kit](https//github.com/zeakd/drawing-kit.js), [histogram-analyze](https://github.com/zeakd/histogram-analyze.js). 
+You should install latest version of dependencies, [chroma](https://github.com/gka/chroma.js), [drawing-kit](https://github.com/zeakd/drawing-kit.js), [histogram-analyze](https://github.com/zeakd/histogram-analyze.js). 
 
 ```html
     <body>
