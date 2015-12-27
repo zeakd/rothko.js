@@ -39,7 +39,7 @@ function pickColors () {
     colors = roth.getColorsSync();
     
     var dominantColors = colors.dominants;
-    var highSatColors = colors.highSaturates;
+    var highSatColors = colors.points;
     var chromaColors = colors.chromas;
     var achromaColors = colors.achromas;
 

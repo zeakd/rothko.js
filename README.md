@@ -34,7 +34,7 @@ var roth = Rothko(img);
 img.onload = function () {
     var colors = roth.getColorsSync();
     console.log(colors.dominants,
-                colors.highSaturates,
+                colors.points,
                 colors.chromas,
                 colors.achromas);
 }

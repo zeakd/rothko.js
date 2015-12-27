@@ -146,7 +146,7 @@ Rothko.prototype.getColorsSync = function () {
 
     var achromaLumPeaks =  histoAchromaL.gaussianSmoothing(5,7).flatten(0.05).findPeaks();
 
-    var highSaturates = pickColors(highSatColors, highSatHuePeaks, 2);
+    var points = pickColors(highSatColors, highSatHuePeaks, 2);
     var chromas = pickColors(chromaColors, chromaHuePeaks, 2);
     var achromas = pickColors(achromaColors, achromaLumPeaks, 0);
 
@@ -189,8 +189,8 @@ Rothko.prototype.getColorsSync = function () {
             }
         }
     }
-    combine(highSaturates);
-    arrange(highSaturates);
+    combine(points);
+    arrange(points);
     arrange(chromas);
     arrange(achromas);
 
@@ -199,11 +199,11 @@ Rothko.prototype.getColorsSync = function () {
     dominants.sort(function (f,b) {
         return b.rate - f.rate;
     })
-//        dominants = highSaturates.concat(dominants);
+//        dominants = points.concat(dominants);
 
     return {
         dominants : dominants,
-        highSaturates : highSaturates,
+        points : points,
         chromas : chromas,
         achromas : achromas
     }
