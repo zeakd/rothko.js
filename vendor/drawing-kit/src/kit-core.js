@@ -58,8 +58,9 @@
             }
         }
     }
-
+    
     function pixelLooper(target, getHandler, setHandler){
+        console.time("pixelLooper");
         imageData = isCanvas(target) ? 
             target
             .getContext('2d')
@@ -68,23 +69,45 @@
         getHandler = getHandler || function () {};
         setHandler = setHandler || function () {};
         
-        width = imageData.width;
-        height = imageData.height;
-        for(var x = 0; x < width; ++x){
-            for(var y = 0; y < height; ++y){
-                var index = (x + y * imageData.width) * 4;
-                var r = imageData.data[index + 0];
-                var g = imageData.data[index + 1];
-                var b = imageData.data[index + 2];
-                var a = imageData.data[index + 3];
-                getHandler(x,y,r,g,b,a);
-                setHandler(imageData.data, x, y, index+0, index+1, index+2, index+3);
-            }
+//        var width = imageData.width;
+//        var height = imageData.height;
+//        for(var x = 0; x < width; ++x){
+//            for(var y = 0; y < height; ++y){
+//                var index = (x + y * imageData.width) * 4;
+//                var r = imageData.data[index + 0];
+//                var g = imageData.data[index + 1];
+//                var b = imageData.data[index + 2];
+//                var a = imageData.data[index + 3];
+//                getHandler(r,g,b,a);
+////                setHandler(imageData.data, x, y, index+0, index+1, index+2, index+3);
+//            }
+//        }
+        
+        var len = imageData.width * imageData.height * 4;
+        var pixels = imageData.data;
+//        for (var i = len - 1; i > 2; i -= 4) {
+//            getHandler(
+//                pixels[i-3],
+//                pixels[i-2],
+//                pixels[i-1],
+//                pixels[i]                
+//            )
+//        }
+        for (var i = 0; i < len; i += 4) {
+            getHandler(
+                0,
+                0,
+                pixels[i],
+                pixels[i+1],
+                pixels[i+2],
+                pixels[i+3]
+            )
         }
+        
         if (isCanvas(target)) {
             target.getContext("2d").putImageData(imageData, 0, 0);    
         }
-        
+        console.timeEnd("pixelLooper");
     }
 
     function createCanvasByImage(img, pixelSaturate){

@@ -25,8 +25,10 @@ gulp.task("serve:dev", ['sass:dev'], function () {
     
     gulp.watch([
         "debug/index.html",
+        "debug/**/*.js",
         "tmp/**/*.*",
-        "src/**/*.js"
+        "src/**/*.js",
+        "vendor/**/*.js"
     ]).on('change', browserSync.reload);
 })
 

@@ -40,12 +40,13 @@
 }(function(kit, hA, chroma){
 
 var ACHROMA_C = 10;
-var ACHROMA_L = 10;
+var ACHROMA_B = 10;
+var ACHROMA_W = 95;
 var HIGHSAT_C = 70;
 var HIGHSAT_L = 90;
 
 var Rothko = function (imgObj, opt) {
-    if (!this instanceof Rothko) {
+    if (!(this instanceof Rothko)) {
         return new Rothko(imgObj);    
     }
 
@@ -55,7 +56,7 @@ var Rothko = function (imgObj, opt) {
 };
 
 Rothko.prototype.getColorsSync = function () {
-    this.imageCanvas = kit.createCanvasByImage(this.origin, 50000);
+    this.imageCanvas = kit.createCanvasByImage(this.origin, 100000);
 
     var colors = this.colors = [];
 
@@ -67,7 +68,7 @@ Rothko.prototype.getColorsSync = function () {
     var histoHighSatH = this.histoHighSatH = hA.circularHistogram1D(360);
     var histoAchromaL = this.histoAchromaL = hA.histogram1D(101);
 
-    function getHandler(x, y, r, g, b, a) {
+    function getHandler(x,y, r, g, b, a) {
         var lch = chroma.rgb(r,g,b).lch();
         lch[2] = isNaN(lch[2]) ? 0 : lch[2];
         var l = lch[0],
@@ -79,12 +80,14 @@ Rothko.prototype.getColorsSync = function () {
 
         h = h === 360 ? 0 : h;
 
-        if (ACHROMA_C > c || ACHROMA_L > l) {
-            histoAchromaL[l]++;
-            achromaColors.push(lch);    
-        } else if (HIGHSAT_C < c || HIGHSAT_L < l) {
+        if (HIGHSAT_C < c && HIGHSAT_L < l) {
             histoHighSatH[h]++;
             highSatColors.push(lch);
+        }
+        
+        if (ACHROMA_C > c || ACHROMA_B > l || ACHROMA_W < l) {
+            histoAchromaL[l]++;
+            achromaColors.push(lch);    
         } else {       
             histoChromaH[h]++;
             chromaColors.push(lch);
@@ -93,65 +96,64 @@ Rothko.prototype.getColorsSync = function () {
 
     kit.pixelLooper(this.imageCanvas, getHandler);
 
+    var highSatHuePeaks =  histoHighSatH.gaussianSmoothing(3,3).flatten(0.05).findPeaks();
+    var smoothed = histoChromaH.gaussianSmoothing(5, 7)
+//    this.lHistogram1 = hD.draw1d(smoothed);
+    var flatted = smoothed.flatten(0.05);
+//    this.lHistogram2 = hD.draw1d(flatted);
+    var chromaHuePeaks = flatted.findPeaks();
+    
+    var achromaLumPeaks =  histoAchromaL.gaussianSmoothing(5,7).flatten(0.05).findPeaks();
+
+    
+    
 //    this.lHistogram = hD.draw1d(histoChromaH);
 
-    //get h
-
-
-    function pickColors (colorStorage, data, dataIdx) {
+    var pixelNum = this.imageCanvas.width * this.imageCanvas.height;
+    
+    function pickColors (colorStorage, peaks, colorDataIdx) {
         var pickedColors = [];
-
+        var size = 0;
+        var trashSize = 0;
         for (var i = 0; i < colorStorage.length; ++i) {
-            for (var j = 0; j<data.length; ++j) {
-                var d = colorStorage[i][dataIdx];
-
-                if ((data[j].start <= d && data[j].end > d) ||
-                    ((data[j].start > data[j].end) &&
-                     (d >= data[j].start || d < data[j].end)
+            for (var j = 0; j<peaks.length; ++j) {
+                var color = colorStorage[i];
+                var d = color[colorDataIdx];
+                if ((peaks[j].start <= d && peaks[j].end > d) ||
+                    ((peaks[j].start > peaks[j].end) &&
+                     (d >= peaks[j].start || d < peaks[j].end)
                     )) {
-                    if (pickedColors[j]) {
-                        var rgb = chroma.lch(colorStorage[i]).rgb();
-                        pickedColors[j][0] += rgb[0];
-
-                        pickedColors[j][1] += rgb[1];
-
-                        pickedColors[j][2] += rgb[2];
-                        pickedColors[j].size++;
-                    } else {
-                        pickedColors[j] = chroma.lch(colorStorage[i]).rgb();    
-                        pickedColors[j].size = 1;
+                    var rgb = chroma.lch(color).rgb();
+                    if (!pickedColors[j]) {
+                        pickedColors[j] = [0, 0, 0];
+                        pickedColors[j].size = 0;
                     }
+                    
+                    pickedColors[j][0] += rgb[0];
+                    pickedColors[j][1] += rgb[1];
+                    pickedColors[j][2] += rgb[2];
+                    pickedColors[j].size++;
+
+                    size++;
+                } else {
+                    trashSize++;
                 }
             }
         }
-        for (var i = 0; i<pickedColors.length; ++i) {
-            pickedColors[i][0] /= pickedColors[i].size;
-            pickedColors[i][1] /= pickedColors[i].size;
-            pickedColors[i][2] /= pickedColors[i].size;
+        for (var i = 0; i < pickedColors.length; ++i) {
+            var pickedColor = pickedColors[i];
+            pickedColor[0] /= pickedColor.size;
+            pickedColor[1] /= pickedColor.size;
+            pickedColor[2] /= pickedColor.size;
         }
-
+        console.log("trash size : ", trashSize)
+//        console.log("trash rate : ", trashSize / pickedColors)
         return pickedColors;
     }
 
-    var highSatHuePeaks = histoHighSatH.gaussianSmoothing(3,3).flatten(0.05).findPeaks();
 
-    var smoothed = histoChromaH.gaussianSmoothing(5, 7)
-//    this.lHistogram1 = hD.draw1d(smoothed);
-
-    var flatted = smoothed.flatten(0.05);
-//    this.lHistogram2 = hD.draw1d(flatted);
-
-    var chromaHuePeaks = flatted.findPeaks();
-
-
-    var achromaLumPeaks =  histoAchromaL.gaussianSmoothing(5,7).flatten(0.05).findPeaks();
-
-    var points = pickColors(highSatColors, highSatHuePeaks, 2);
     var chromas = pickColors(chromaColors, chromaHuePeaks, 2);
     var achromas = pickColors(achromaColors, achromaLumPeaks, 0);
-
-
-    var size = this.imageCanvas.width * this.imageCanvas.height;
 
     function combine (colors) {
         function rgbDistance(f, b) {
@@ -175,32 +177,37 @@ Rothko.prototype.getColorsSync = function () {
             }
         }
     }
+    
+    var pickedRate = 0;
     function arrange (colors) {
-        for (var i =0; i < colors.length; ) {
-            var rate = colors[i].size / size;    
-            if (rate < 0.00008) {
-                var index = colors.indexOf(colors[i]);
-                if (index > -1) {
-                    colors.splice(index, 1);
-                }  
-            } else {
-                colors[i].rate = rate;
-                i++;
+        var result = [];
+        for (var i =0; i < colors.length; i++) {
+            var imageRate = colors[i].size / pixelNum;    
+            if (imageRate > 0.00008) {
+                colors[i].imageRate = imageRate;
+                pickedRate += imageRate;
+                result.push(colors[i]);    
             }
         }
+        return result;
     }
-    combine(points);
-    arrange(points);
-    arrange(chromas);
-    arrange(achromas);
-
+    
+    chromas = arrange(chromas);
+    achromas = arrange(achromas);
 
     var dominants = chromas.concat(achromas);
     dominants.sort(function (f,b) {
         return b.rate - f.rate;
-    })
-//        dominants = points.concat(dominants);
-
+    });
+    
+    for (var i=0; i < dominants.length; i++) {
+        dominants[i].rate = dominants[i].imageRate / pickedRate;    
+    }
+    
+    var points = pickColors(highSatColors, highSatHuePeaks, 2);
+    combine(points);
+    points = arrange(points);
+    
     return {
         dominants : dominants,
         points : points,

@@ -5,7 +5,7 @@ var root = document.getElementById("root");
 var ti = document.getElementById("target-image");
 var histos = document.getElementById("histos");
     
-var roth = new Rothko(ti);
+var roth = Rothko(ti);
 ti.onload = targetImageOnload;
 
 var colors;
@@ -13,10 +13,6 @@ var colors;
 imageInput.addEventListener('change', function(){
     var file = this.files[0];
     var url = URL.createObjectURL(file);
-    if (playing) {
-        stopSound(parts, components);
-    }
-
     
     if (url) {
         ti.src = url;
@@ -56,14 +52,17 @@ function pickColors () {
     var elAchromaTarget = elAchromaColors.children[1];
     elAchromaTarget.innerHTML = ""
     
+    var rate = 0;
     for (var i = 0; i < dominantColors.length; ++i) {
         var hex = chroma.rgb(dominantColors[i]).hex();
         var el = document.createElement("div");
         el.style.backgroundColor = hex;
         el.className = "color";
         elDominantTarget.appendChild(el);
+        rate += dominantColors[i].rate;
     }
-
+    console.log("rate", rate);
+    
     for (var i = 0; i < highSatColors.length; ++i) {
         var hex = chroma.rgb(highSatColors[i]).hex();
         var el = document.createElement("div");
@@ -87,6 +86,7 @@ function pickColors () {
         el.className = "color";
         elAchromaTarget.appendChild(el);
     }
+    
     return colors;
 }
 
