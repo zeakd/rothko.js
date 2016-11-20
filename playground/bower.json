@@ -1,0 +1,17 @@
+{
+  "name": "playground",
+  "homepage": "https://github.com/zeakd/drawing-kit.js",
+  "authors": [
+    "zeakd <stuzeakd@kaist.ac.kr>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

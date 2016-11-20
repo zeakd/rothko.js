@@ -1,0 +1,3 @@
+Rothko.prototype.palette = function () {
+  
+}
